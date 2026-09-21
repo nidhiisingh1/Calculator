@@ -1,0 +1,37 @@
+
+import tkinter as tk
+root = tk.Tk()
+root.geometry('400x600')
+root.title("Calculator")
+var=tk.StringVar()
+entry = tk.Entry(root,textvariable=var,font="Arial 29 bold")
+entry.pack(anchor="nw",fill="x",padx=10,pady=10,ipady=30) #ipady ka use andar vertical space badhane ke liye hota hai
+def click(value):
+    if value=="C":
+        var.set("")
+    elif value=="=":
+        try:
+            result = eval(var.get())
+            var.set(result)
+        except:
+            var.set("error")
+    else:
+       var.set(var.get()+value)
+buttons= [
+        ["7","8","9","/"],
+        ["4","5","6","*"],
+        # ["1","2","3","-"],
+        ["0",".","=","+"],
+        ["C","//","**","%"]   ]
+#buttons ka main frame
+button_frame = tk.Frame(root)
+button_frame.pack()
+#Har row ke liye ek frame
+for row in buttons:
+    row_frame = tk.Frame(button_frame)
+    row_frame.pack(padx=20)
+    #us row ke buttons
+    for value in row:
+        button = tk.Button(row_frame,text=value,padx=30,pady=30,command=lambda v=value:click(v))
+        button.pack(side="left",padx=8,pady=8)
+root.mainloop()
